@@ -1,1 +1,7 @@
-wheel==0.22.0
+Jinja2==2.7.2
+MarkupSafe==0.19
+PyYAML==3.11
+argparse==1.2.1
+binaryornot==0.2.0
+cookiecutter==0.7.0
+wsgiref==0.1.2
