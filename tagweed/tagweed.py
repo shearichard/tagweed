@@ -21,6 +21,20 @@ Options:
 from __future__ import unicode_literals, print_function
 from optparse import OptionParser
 import os
+import ConfigParser
+
+def uidpwd(service_name, path_to_cfg):
+    '''
+    Read config file to get uid and pwd
+    '''
+    cp = ConfigParser.ConfigParser()
+    cp.read(path_to_cfg)
+    uid = cp.get(service_name, "uid")
+    pwd = cp.get(service_name, "pwd")
+
+    return uid, pwd
+
+
 
 def parse_args():
     '''
