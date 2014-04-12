@@ -71,10 +71,22 @@ def parse_args():
     return options
 
 
+def notmain():
+    '''
+    Only for the purpose of testing the testing
+    '''
+    print("hello")
+
+
 def main():
     '''Main entry point for the tagweed CLI.'''
+    print("hello")
+    print("1" * 40)
+    print("About torun parse_args")
+    print("2" * 40)
     args = parse_args()
     print(args)
 
 if __name__ == '__main__':
+    notmain()
     main()
