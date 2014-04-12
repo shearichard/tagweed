@@ -19,8 +19,7 @@ class TestTagweed(unittest.TestCase):
         pass
 
     def test_something(self):
-        self.assertEqual( 0, 1)
-        pass
+        self.assertEqual(0, 1)
 
     def tearDown(self):
         pass
