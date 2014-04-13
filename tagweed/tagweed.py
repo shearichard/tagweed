@@ -1,43 +1,49 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-'''tagweed
-
-Usage:
-  tagweed ship new <name>...
-  tagweed ship <name> move <x> <y> [--speed=<kn>]
-  tagweed ship shoot <x> <y>
-  tagweed mine (set|remove) <x> <y> [--moored|--drifting]
-  tagweed -h | --help
-  tagweed --version
-
-Options:
-  -h --help     Show this screen.
-  --version     Show version.
-  --speed=<kn>  Speed in knots [default: 10].
-  --moored      Moored (anchored) mine.
-  --drifting    Drifting mine.
-'''
 from __future__ import unicode_literals, print_function
 import os
 import sys
-import ConfigParser
+from ConfigParser import SafeConfigParser
 import argparse
 
 
-def uidpwd(service_name, path_to_cfg):
+def parse_args_and_cfg():
     '''
-    Read config file to get uid and pwd
+    Parse command line arguments and config file
+    and combine into one data structure
     '''
-    cp = ConfigParser.ConfigParser()
-    cp.read(path_to_cfg)
-    uid = cp.get(service_name, "uid")
-    pwd = cp.get(service_name, "pwd")
+    args = parse_command_line_args()
+    cfgs = process_config_file(args['config'], args['source'])
 
-    return uid, pwd
+    for k in cfgs.iterkeys():
+        if k in args:
+            sys.exit("The config key : %s also appears as a \
+                    command line argument keyword. Fatal error" % k)
+        else:
+            args[k] = cfgs[k]
+
+    return args
+
+def process_config_file(path_to_cfg_file, source):
+    '''
+    Extract relevant values from config file
+    '''
+    if source == "LOCAL":
+        d = {}
+    else:
+        parser = SafeConfigParser()
+        parser.read(path_to_cfg_file)
+        tag_get_url = parser.get(source, 'taggeturl')
+        d = {'taggeturl': tag_get_url}
+
+    return d 
 
 
-def parse_args():
+def parse_command_line_args():
+    '''
+    Parse command line args and do some rudimentary validation
+    '''
 
     lst_vld_actions = ['FINDSIMILAR']
     lst_vld_sources = ['PINBOARD', 'LOCAL']
@@ -46,9 +52,12 @@ def parse_args():
     source_help = 'either the name of the service hosting the tags or "LOCAL" where tags are in a local file. Valid values : %s' % "|".join(lst_vld_sources)
 
     parser = argparse.ArgumentParser(description='Provides assistance in cleaning sets of tags.')
-    parser.add_argument('-c', '--config', required=True, help='path to the config file')
+    parser.add_argument('-c', '--config', required=True, help='Path to the config file')
     parser.add_argument('-a', '--action', required=True,  help=action_help)
-    parser.add_argument('-s', '--source', required=False,  help=source_help)
+    parser.add_argument('-s', '--source', required=True,  help=source_help)
+    parser.add_argument('-u', '--userid', required=False,  help="Userid to access tag cloud")
+    parser.add_argument('-p', '--password', required=False,  help="Password to access tag cloud")
+    parser.add_argument('-l', '--localfile', required=False,  help="Path to local JSON containing tags")
 
     args = vars(parser.parse_args())
 
@@ -59,14 +68,26 @@ def parse_args():
         sys.exit("Only %s are valid sources" % "|".join(lst_vld_sources))
 
     if not os.path.isfile(args['config']):
-        sys.exit("%s is not a file" % args['config'])
+        sys.exit("The 'config' file path %s is not a file" % args['config'])
+
+    if args["source"] == "LOCAL":
+        if args["localfile"]:
+            if not os.path.isfile(args['localfile']):
+                sys.exit("The 'localfile' file path %s is not a file" % args['localfile'])
+        else:
+            sys.exit("For source : %s the localfile must be supplied" % args['source'])
+    else:
+        if args["userid"] == None:
+            sys.exit("For source : %s the userid must be supplied" % args['source'])
+        elif args["password"] == None:
+            sys.exit("For source : %s the password must be supplied" % args['source'])
 
     return args
 
 
 def main():
     '''Main entry point for the tagweed CLI.'''
-    args = parse_args()
+    args = parse_args_and_cfg()
     innermain(args)
 
 
