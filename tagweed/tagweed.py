@@ -93,6 +93,7 @@ def main():
 
 def innermain(args):
     '''Main processing for the tagweed CLI.'''
+    return []
 
 if __name__ == '__main__':
     main()
