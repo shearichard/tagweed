@@ -39,7 +39,7 @@ class TestTagweedArgHandling(unittest.TestCase):
         sys.stdout = self.saved_stdout
 
     def testYourScript1(self):
-        tagweed.notmain()
+        tagweed.main()
         if self.usestringio:
             assert "hello" in self.output.getvalue()
         else:

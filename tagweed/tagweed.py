@@ -19,9 +19,10 @@ Options:
   --drifting    Drifting mine.
 '''
 from __future__ import unicode_literals, print_function
-from optparse import OptionParser
 import os
+import sys
 import ConfigParser
+import argparse
 
 
 def uidpwd(service_name, path_to_cfg):
@@ -37,56 +38,40 @@ def uidpwd(service_name, path_to_cfg):
 
 
 def parse_args():
-    '''
-    Parses command line arguments using OptionParser.
-    Applies validation rules to arguments and then, if OK
-    returns them in a 'dictionary like' object ``options``
 
-    '''
-    desc = "%prog is used to highlight tags which might be changed and so \n" + \
-           "improve the usefulness of the set of tags.\n" + \
-           "\n\n" + \
-           "Command line options specify the location of a config file and the" + \
-           "location of the tags."
+    lst_vld_actions = ['FINDSIMILAR']
+    lst_vld_sources = ['PINBOARD', 'LOCAL']
 
-    usage_inner = "Usage: %s [options]"
-    usage = usage_inner % "%prog"
+    action_help = 'the process to be executed. Valid values : %s' % "|".join(lst_vld_actions)
+    source_help = 'either the name of the service hosting the tags or "LOCAL" where tags are in a local file. Valid values : %s' % "|".join(lst_vld_sources)
 
-    parser = OptionParser(description=desc, usage=usage)
-    parser.add_option("-c", "--config", action="store",  dest="cfg",
-                      metavar="CONFIG", help="Full path to config data")
-    parser.add_option("-t", "--tagsource", action="store", dest="tagsource",
-                      metavar="TAGSOURCE", help="Name of TAGSOURCE (currently only PINBOARD is supported")
-    parser.add_option("-v", "--verbose", action="store_true",
-                      dest="verbose", help="Show progress messages")
+    parser = argparse.ArgumentParser(description='Provides assistance in cleaning sets of tags.')
+    parser.add_argument('-c', '--config', required=True, help='path to the config file')
+    parser.add_argument('-a', '--action', required=True,  help=action_help)
+    parser.add_argument('-s', '--source', required=False,  help=source_help)
 
-    (options, args) = parser.parse_args()  # pylint: disable=W0612
+    args = vars(parser.parse_args())
 
-    if (options.cfg is None) or (options.tagsource is None):
-        parser.print_help()
-        exit(-1)
-    elif not os.path.exists(options.cfg):
-        parser.error('config location does not exist')
+    if args['action'] not in lst_vld_actions:
+        sys.exit("Only %s are valid actions" % "|".join(lst_vld_actions))
 
-    return options
+    if args['source'] not in lst_vld_sources:
+        sys.exit("Only %s are valid sources" % "|".join(lst_vld_sources))
 
+    if not os.path.isfile(args['config']):
+        sys.exit("%s is not a file" % args['config'])
 
-def notmain():
-    '''
-    Only for the purpose of testing the testing
-    '''
-    print("hello")
+    return args
 
 
 def main():
     '''Main entry point for the tagweed CLI.'''
-    print("hello")
-    print("1" * 40)
-    print("About torun parse_args")
-    print("2" * 40)
     args = parse_args()
-    print(args)
+    innermain(args)
+
+
+def innermain(args):
+    '''Main processing for the tagweed CLI.'''
 
 if __name__ == '__main__':
-    notmain()
     main()
