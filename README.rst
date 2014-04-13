@@ -21,3 +21,18 @@ Features
 --------
 
 * TODO
+
+
+Usage
+-----
+Examples of usage for easy reference:
+
+Local source of tags:
+```
+(venv)~/dev/tagweed $ python tagweed.py -c sample.cfg -a FINDSIMILAR -s LOCAL -l sampletags.json
+```
+Pinboard.in source of tags:
+```
+(venv)~/dev/tagweed/tagweed $ python tagweed.py -c sample.cfg -a FINDSIMILAR -s PINBOARD
+```
+
