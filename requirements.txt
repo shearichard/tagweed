@@ -13,5 +13,6 @@ pdbpp==0.7.2
 pep8==1.5.5
 pyflakes==0.8.1
 pyrepl==0.8.4
+requests==2.2.1
 wmctrl==0.1
 wsgiref==0.1.2
