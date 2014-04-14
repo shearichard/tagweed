@@ -104,8 +104,11 @@ def innermain(args):
 
     print(r.headers)
     print("")
-    print(r.text)
+    print(r.json())
     print("")
+    dtags = r.json()
+    print("")
+    print(dtags['sphinx'])
 
     return []
 
