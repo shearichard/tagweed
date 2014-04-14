@@ -6,6 +6,8 @@ import os
 import sys
 from ConfigParser import SafeConfigParser
 import argparse
+from requests.auth import HTTPBasicAuth
+import requests
 
 
 def parse_args_and_cfg():
@@ -25,6 +27,7 @@ def parse_args_and_cfg():
 
     return args
 
+
 def process_config_file(path_to_cfg_file, source):
     '''
     Extract relevant values from config file
@@ -37,7 +40,7 @@ def process_config_file(path_to_cfg_file, source):
         tag_get_url = parser.get(source, 'taggeturl')
         d = {'taggeturl': tag_get_url}
 
-    return d 
+    return d
 
 
 def parse_command_line_args():
@@ -77,9 +80,9 @@ def parse_command_line_args():
         else:
             sys.exit("For source : %s the localfile must be supplied" % args['source'])
     else:
-        if args["userid"] == None:
+        if args["userid"] is None:
             sys.exit("For source : %s the userid must be supplied" % args['source'])
-        elif args["password"] == None:
+        elif args["password"] is None:
             sys.exit("For source : %s the password must be supplied" % args['source'])
 
     return args
@@ -93,6 +96,17 @@ def main():
 
 def innermain(args):
     '''Main processing for the tagweed CLI.'''
+    r = requests.get(args['taggeturl'], auth=HTTPBasicAuth(args['userid'], args['password']))
+    if r.status_code == 200:
+        pass
+    else:
+        r.raise_for_status
+
+    print(r.headers)
+    print("")
+    print(r.text)
+    print("")
+
     return []
 
 if __name__ == '__main__':

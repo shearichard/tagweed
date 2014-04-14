@@ -33,6 +33,6 @@ Local source of tags:
 ```
 Pinboard.in source of tags:
 ```
-(venv)~/dev/tagweed/tagweed $ python tagweed.py -c sample.cfg -a FINDSIMILAR -s PINBOARD
+(venv)~/dev/tagweed/tagweed $ python tagweed.py -c sample.cfg -a FINDSIMILAR -s PINBOARD  -u foo -p bar
 ```
 

@@ -9,8 +9,6 @@ Tests for `tagweed` module.
 """
 
 import unittest
-import StringIO
-import sys
 
 from tagweed import tagweed
 
