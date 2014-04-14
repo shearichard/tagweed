@@ -9,6 +9,7 @@ docopt==0.6.1
 fancycompleter==0.4
 flake8==2.1.0
 mccabe==0.2.1
+mock==1.0.1
 pdbpp==0.7.2
 pep8==1.5.5
 pyflakes==0.8.1
