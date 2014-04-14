@@ -19,8 +19,8 @@ class TestTagweed(unittest.TestCase):
         pass
 
     def test_taglist_returntype(self):
-        l = tagweed.innermain({})
-        self.assertIsInstance(l, list)
+        d = tagweed.innermain({})
+        self.assertIsInstance(d, dict)
 
     def tearDown(self):
         pass

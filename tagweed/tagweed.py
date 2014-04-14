@@ -96,6 +96,7 @@ def main():
 
 def innermain(args):
     '''Main processing for the tagweed CLI.'''
+    print(args)
     r = requests.get(args['taggeturl'], auth=HTTPBasicAuth(args['userid'], args['password']))
     if r.status_code == 200:
         pass
@@ -110,7 +111,7 @@ def innermain(args):
     print("")
     print(dtags['sphinx'])
 
-    return []
+    return dtags
 
 if __name__ == '__main__':
     main()
