@@ -35,6 +35,17 @@ class TestTagweed(unittest.TestCase):
         '''
         with self.assertRaises(HTTPError) as cm:
             tagweed.innermain({'taggeturl': 'https://api.pinboard.in/v1/tags/get?format=json',
+                               'source': 'PINBOARD',
+                               'userid': '',
+                               'password': ''})
+
+    def test_local_handling(self):
+        '''
+        Test how the code deals with an attempt to use local
+        '''
+        with self.assertRaises(NotImplementedError) as cm:
+            tagweed.innermain({'taggeturl': 'https://api.pinboard.in/v1/tags/get?format=json',
+                               'source': 'LOCAL',
                                'userid': '',
                                'password': ''})
 
