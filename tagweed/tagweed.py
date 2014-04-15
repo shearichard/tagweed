@@ -56,11 +56,11 @@ def parse_command_line_args():
 
     parser = argparse.ArgumentParser(description='Provides assistance in cleaning sets of tags.')
     parser.add_argument('-c', '--config', required=True, help='Path to the config file')
-    parser.add_argument('-a', '--action', required=True,  help=action_help)
-    parser.add_argument('-s', '--source', required=True,  help=source_help)
-    parser.add_argument('-u', '--userid', required=False,  help="Userid to access tag cloud")
-    parser.add_argument('-p', '--password', required=False,  help="Password to access tag cloud")
-    parser.add_argument('-l', '--localfile', required=False,  help="Path to local JSON containing tags")
+    parser.add_argument('-a', '--action', required=True, help=action_help)
+    parser.add_argument('-s', '--source', required=True, help=source_help)
+    parser.add_argument('-u', '--userid', required=False, help="Userid to access tag cloud")
+    parser.add_argument('-p', '--password', required=False, help="Password to access tag cloud")
+    parser.add_argument('-l', '--localfile', required=False, help="Path to local JSON containing tags")
 
     args = vars(parser.parse_args())
 
@@ -91,26 +91,15 @@ def parse_command_line_args():
 def main():
     '''Main entry point for the tagweed CLI.'''
     args = parse_args_and_cfg()
-    innermain(args)
+    tagsdict = innermain(args)
 
 
 def innermain(args):
     '''Main processing for the tagweed CLI.'''
     print(args)
     r = requests.get(args['taggeturl'], auth=HTTPBasicAuth(args['userid'], args['password']))
-    if r.status_code == 200:
-        pass
-    else:
-        r.raise_for_status
-
-    print(r.headers)
-    print("")
-    print(r.json())
-    print("")
+    r.raise_for_status()
     dtags = r.json()
-    print("")
-    print(dtags['sphinx'])
-
     return dtags
 
 if __name__ == '__main__':
