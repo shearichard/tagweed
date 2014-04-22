@@ -38,9 +38,21 @@ class TestTagweed(unittest.TestCase):
         d[u'def'] =  u'0'
         d[u'ghi'] =  u'0'
         d[u'jkl'] =  u'0'
-        dsims = tagweed.find_similar_tags(d, 0.9)
+        dsims = tagweed.find_similar_tags(d, 0.8)
         self.assertEqual(len(dsims), 0)
 
+    def test_similarity_when_similar(self):
+        '''
+        Test that we don't get false positives
+        '''
+        d = {}
+        d[u'abc'] =  u'0'
+        d[u'abcd'] =  u'0'
+        d[u'def'] =  u'0'
+        d[u'ghi'] =  u'0'
+        d[u'jkl'] =  u'0'
+        dsims = tagweed.find_similar_tags(d, 0.8)
+        self.assertEqual(len(dsims), 2)
 
     def test_no_auth_handling(self):
         '''
