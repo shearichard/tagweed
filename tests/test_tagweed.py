@@ -29,6 +29,19 @@ class TestTagweed(unittest.TestCase):
     def setUp(self):
         pass
 
+    def test_similarity_not_similar(self):
+        '''
+        Test that we don't get false positives
+        '''
+        d = {}
+        d[u'abc'] =  u'0'
+        d[u'def'] =  u'0'
+        d[u'ghi'] =  u'0'
+        d[u'jkl'] =  u'0'
+        dsims = tagweed.find_similar_tags(d, 0.9)
+        self.assertEqual(len(dsims), 0)
+
+
     def test_no_auth_handling(self):
         '''
         Test how the code deals with improper authorisation
