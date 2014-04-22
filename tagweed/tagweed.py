@@ -62,14 +62,45 @@ def find_similar_tags(dtags, simquotient):
         if len(matches) > 0:
             dsims[t] = matches
 
-    return dsims
+    dplurals = find_plural_tags(dtags)
+
+    return dsims, dplurals
+
+def find_plural_tags(dtags):
+    '''
+    Find tags which differ only because one is a plural of 
+    the other.
+
+    Note that only "common" plurals are looked for as dealing
+    with the irregular cases would generate too many false positives
+
+    Returns a dictionary keyed by a, potentially, unwanted plural the
+    value of which is the, presumably, wanted singular
+    '''
+    dplurals = {}
+    dsingular = []
+    for k in dtags.iterkeys():
+        if k not in dsingular:
+            dsingular.append(k)
+            plural_type_a = "%ss" % (k)
+            plural_type_b = "%ses" % (k)
+            if plural_type_a in dtags:
+                dplurals[plural_type_a] = k
+            if plural_type_b in dtags:
+                dplurals[plural_type_b] = k
+
+    return dplurals
+
+
+
 
 def innermain(args):
     '''Processing for the tagweed CLI after config data has been gathered'''
     dtags = gettags(args)
-    dsims = find_similar_tags(dtags, 0.8) 
+    dsims, dplurals = find_similar_tags(dtags, 0.8) 
     print(len(dsims))
     print(len(dtags))
+    pprint.pprint(dsims)
 
 
 def main():
