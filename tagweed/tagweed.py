@@ -54,9 +54,9 @@ def find_similar_tags(dtags, simquotient):
     ltags = dtags.keys()
 
     for t in ltags:
-        #Get similar match
+        # Get similar match
         matches = difflib.get_close_matches(t, ltags, 3, simquotient)
-        #Remove the tag itself from the similarities
+        # Remove the tag itself from the similarities
         if t in matches:
             matches.remove(t)
         if len(matches) > 0:
@@ -66,9 +66,10 @@ def find_similar_tags(dtags, simquotient):
 
     return dsims, dplurals
 
+
 def find_plural_tags(dtags):
     '''
-    Find tags which differ only because one is a plural of 
+    Find tags which differ only because one is a plural of
     the other.
 
     Note that only "common" plurals are looked for as dealing
@@ -92,12 +93,10 @@ def find_plural_tags(dtags):
     return dplurals
 
 
-
-
 def innermain(args):
     '''Processing for the tagweed CLI after config data has been gathered'''
     dtags = gettags(args)
-    dsims, dplurals = find_similar_tags(dtags, 0.8) 
+    dsims, dplurals = find_similar_tags(dtags, 0.8)
     print(len(dsims))
     print(len(dtags))
     pprint.pprint(dsims)

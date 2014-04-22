@@ -27,21 +27,17 @@ from tagweed import tagweed
 class TestTagweed(unittest.TestCase):
 
     def setUp(self):
-        self.dtx = {}
-        self.dtx[u'abc'] =  u'0'
-        self.dtx[u'def'] =  u'0'
-        self.dtx[u'ghi'] =  u'0'
-        self.dtx[u'jkl'] =  u'0'
+        self.baseline_dtags = {}
+        self.baseline_dtags[u'abc'] = u'0'
+        self.baseline_dtags[u'def'] = u'0'
+        self.baseline_dtags[u'ghi'] = u'0'
+        self.baseline_dtags[u'jkl'] = u'0'
 
     def test_similarity_not_similar(self):
         '''
         Test that we don't get false positives
         '''
-        dtags = {}
-        dtags[u'abc'] =  u'0'
-        dtags[u'def'] =  u'0'
-        dtags[u'ghi'] =  u'0'
-        dtags[u'jkl'] =  u'0'
+        dtags = self.baseline_dtags
         dsims, dplurals = tagweed.find_similar_tags(dtags, 0.8)
         self.assertEqual(len(dsims), 0)
 
@@ -49,29 +45,20 @@ class TestTagweed(unittest.TestCase):
         '''
         Test that we don't get false negatives
         '''
-        dtags= {}
-        dtags[u'abc'] =  u'0'
-        dtags[u'abcd'] =  u'0'
-        dtags[u'def'] =  u'0'
-        dtags[u'ghi'] =  u'0'
-        dtags[u'jkl'] =  u'0'
+        dtags = self.baseline_dtags
+        dtags[u'abcd'] = u'0'
         dsims, dplurals = tagweed.find_similar_tags(dtags, 0.8)
         self.assertEqual(len(dsims), 2)
 
-    #@unittest.skip("skipping test_similarity_when_plural")
     def test_similarity_when_plural(self):
         '''
         Test that we can isolate tags whose only
         difference is that they are plurals of a
         singular key
         '''
-        dtags = {}
-        dtags[u'abc'] =  u'0'
-        dtags[u'abcs'] =  u'0'
-        dtags[u'def'] =  u'0'
-        dtags[u'defx'] =  u'0'
-        dtags[u'ghi'] =  u'0'
-        dtags[u'jkl'] =  u'0'
+        dtags = self.baseline_dtags
+        dtags[u'abcs'] = u'0'
+        dtags[u'defx'] = u'0'
         dsims, dplurals = tagweed.find_similar_tags(dtags, 0.8)
         self.assertEqual(len(dplurals), 1)
 
