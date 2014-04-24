@@ -62,9 +62,22 @@ def find_similar_tags(dtags, simquotient):
         if len(matches) > 0:
             dsims[t] = matches
 
+    return dsims
+
+
+def find_plural_tags1(dtags, simquotient):
+    '''
+    Returns a dictionary, the keys of which are a tag
+    and the value of which is a string of other tags
+    which are distinctly similar to the key
+    '''
+    dsims = collections.defaultdict(list)
+    print(type(dtags))
+    print("")
+
     dplurals = find_plural_tags(dtags)
 
-    return dsims, dplurals
+    return dplurals
 
 
 def find_plural_tags(dtags):
@@ -96,7 +109,7 @@ def find_plural_tags(dtags):
 def innermain(args):
     '''Processing for the tagweed CLI after config data has been gathered'''
     dtags = gettags(args)
-    dsims, dplurals = find_similar_tags(dtags, 0.8)
+    dsims = find_similar_tags(dtags, 0.8)
     print(len(dsims))
     print(len(dtags))
     pprint.pprint(dsims)
