@@ -65,22 +65,7 @@ def find_similar_tags(dtags, simquotient):
     return dsims
 
 
-def find_plural_tags1(dtags, simquotient):
-    '''
-    Returns a dictionary, the keys of which are a tag
-    and the value of which is a string of other tags
-    which are distinctly similar to the key
-    '''
-    dsims = collections.defaultdict(list)
-    print(type(dtags))
-    print("")
-
-    dplurals = find_plural_tags(dtags)
-
-    return dplurals
-
-
-def find_plural_tags(dtags):
+def find_plural_tags(dtags, simquotient):
     '''
     Find tags which differ only because one is a plural of
     the other.

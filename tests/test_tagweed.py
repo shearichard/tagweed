@@ -59,7 +59,7 @@ class TestTagweed(unittest.TestCase):
         dtags = self.baseline_dtags
         dtags[u'abcs'] = u'0'
         dtags[u'defx'] = u'0'
-        dplurals = tagweed.find_plural_tags1(dtags, 0.8)
+        dplurals = tagweed.find_plural_tags(dtags, 0.8)
         self.assertEqual(len(dplurals), 1)
 
     def test_similarity_when_not_plural(self):
@@ -69,7 +69,7 @@ class TestTagweed(unittest.TestCase):
         singular key
         '''
         dtags = self.baseline_dtags
-        dplurals = tagweed.find_plural_tags1(dtags, 0.8)
+        dplurals = tagweed.find_plural_tags(dtags, 0.8)
         self.assertEqual(len(dplurals), 0)
 
     def test_no_auth_handling(self):
