@@ -65,7 +65,7 @@ def find_similar_tags(dtags, simquotient):
     return dsims
 
 
-def find_plural_tags(dtags, simquotient):
+def find_plural_tags(dtags):
     '''
     Find tags which differ only because one is a plural of
     the other.
@@ -91,13 +91,32 @@ def find_plural_tags(dtags, simquotient):
     return dplurals
 
 
-def innermain(args):
-    '''Processing for the tagweed CLI after config data has been gathered'''
-    dtags = gettags(args)
+def innermain_findsimilar(dtags):
+    '''
+    Handle FINDSIMILAR processing
+    '''
     dsims = find_similar_tags(dtags, 0.8)
     print(len(dsims))
     print(len(dtags))
     pprint.pprint(dsims)
+
+def innermain_findplurals(dtags):
+    '''
+    Handle FINDPLURALS processing
+    '''
+    dplurals = find_plural_tags(dtags)
+    pprint.pprint(dplurals)
+
+def innermain(args):
+    '''Processing for the tagweed CLI after config data has been gathered'''
+    dtags = gettags(args)
+    if args['action'] == 'FINDSIMILAR':
+        innermain_findsimilar(dtags)
+    elif args['action'] == 'FINDPLURALS':
+        innermain_findplurals(dtags)
+    else:
+        raise NotImplementedError("An action of : %s is not a valid choice")
+
 
 
 def main():

@@ -36,6 +36,8 @@ class TestTagweed(unittest.TestCase):
     def test_similarity_not_similar(self):
         '''
         Test that we don't get false positives
+        when looking for similar tags but we
+        don't have any
         '''
         dtags = self.baseline_dtags
         dsims = tagweed.find_similar_tags(dtags, 0.8)
@@ -59,17 +61,18 @@ class TestTagweed(unittest.TestCase):
         dtags = self.baseline_dtags
         dtags[u'abcs'] = u'0'
         dtags[u'defx'] = u'0'
-        dplurals = tagweed.find_plural_tags(dtags, 0.8)
+        dplurals = tagweed.find_plural_tags(dtags)
         self.assertEqual(len(dplurals), 1)
 
     def test_similarity_when_not_plural(self):
         '''
-        Test that we can isolate tags whose only
-        difference is that they are plurals of a
-        singular key
+        Test that we don't get false positives
+        when looking for tags that differ only 
+        because they are plural and we don't
+        have any that fit that description.
         '''
         dtags = self.baseline_dtags
-        dplurals = tagweed.find_plural_tags(dtags, 0.8)
+        dplurals = tagweed.find_plural_tags(dtags)
         self.assertEqual(len(dplurals), 0)
 
     def test_no_auth_handling(self):
