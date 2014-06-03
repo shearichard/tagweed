@@ -45,7 +45,7 @@ def parse_command_line_args():
     Parse command line args and do some rudimentary validation
     '''
 
-    lst_vld_actions = ['FINDSIMILAR','FINDPLURALS']
+    lst_vld_actions = ['FINDSIMILAR', 'FINDPLURALS']
     lst_vld_sources = ['PINBOARD', 'LOCAL']
 
     action_help = 'the process to be executed. Valid values : %s' % "|".join(lst_vld_actions)

@@ -118,12 +118,12 @@ def innermain(args):
         raise NotImplementedError("An action of : %s is not a valid choice")
 
 
-
 def main():
     '''Main entry point for the tagweed CLI.'''
     args = configuration.parse_args_and_cfg()
     print(args)
     tagsdict = innermain(args)
+    print(tagsdict)
 
 
 if __name__ == '__main__':

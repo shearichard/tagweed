@@ -67,7 +67,7 @@ class TestTagweed(unittest.TestCase):
     def test_similarity_when_not_plural(self):
         '''
         Test that we don't get false positives
-        when looking for tags that differ only 
+        when looking for tags that differ only
         because they are plural and we don't
         have any that fit that description.
         '''
