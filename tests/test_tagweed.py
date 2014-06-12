@@ -7,6 +7,7 @@ test_tagweed
 
 Tests for `tagweed` module.
 """
+from __future__ import unicode_literals
 
 import unittest
 from requests.exceptions import HTTPError
@@ -28,10 +29,10 @@ class TestTagweed(unittest.TestCase):
 
     def setUp(self):
         self.baseline_dtags = {}
-        self.baseline_dtags[u'abc'] = u'0'
-        self.baseline_dtags[u'def'] = u'0'
-        self.baseline_dtags[u'ghi'] = u'0'
-        self.baseline_dtags[u'jkl'] = u'0'
+        self.baseline_dtags['abc'] = '0'
+        self.baseline_dtags['def'] = '0'
+        self.baseline_dtags['ghi'] = '0'
+        self.baseline_dtags['jkl'] = '0'
 
     def test_similarity_not_similar(self):
         '''
@@ -48,7 +49,7 @@ class TestTagweed(unittest.TestCase):
         Test that we don't get false negatives
         '''
         dtags = self.baseline_dtags
-        dtags[u'abcd'] = u'0'
+        dtags['abcd'] = '0'
         dsims = tagweed.find_similar_tags(dtags, 0.8)
         self.assertEqual(len(dsims), 2)
 
@@ -59,8 +60,8 @@ class TestTagweed(unittest.TestCase):
         singular key
         '''
         dtags = self.baseline_dtags
-        dtags[u'abcs'] = u'0'
-        dtags[u'defx'] = u'0'
+        dtags['abcs'] = '0'
+        dtags['defx'] = '0'
         dplurals = tagweed.find_plural_tags(dtags)
         self.assertEqual(len(dplurals), 1)
 

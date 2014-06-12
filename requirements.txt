@@ -10,10 +10,12 @@ fancycompleter==0.4
 flake8==2.1.0
 mccabe==0.2.1
 mock==1.0.1
-pdbpp==0.7.2
 pep8==1.5.5
+py==1.4.20
 pyflakes==0.8.1
 pyrepl==0.8.4
 requests==2.2.1
+tox==1.7.1
+virtualenv==1.11.6
 wmctrl==0.1
 wsgiref==0.1.2
