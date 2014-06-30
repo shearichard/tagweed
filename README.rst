@@ -20,7 +20,7 @@ tagweed provides help in cleaning up tag clouds such as those seen in pinboard.i
 Features
 --------
 
-* TODO
+* TODO..
 
 
 Usage
