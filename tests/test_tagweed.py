@@ -8,6 +8,7 @@ test_tagweed
 Tests for `tagweed` module.
 """
 from __future__ import unicode_literals
+from __future__ import absolute_import
 
 import unittest
 from requests.exceptions import HTTPError
@@ -99,5 +100,11 @@ class TestTagweed(unittest.TestCase):
     def tearDown(self):
         pass
 
+if __name__ == '__main__' and __package__ is None:
+    from os import sys, path
+    sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+
 if __name__ == '__main__':
     unittest.main()
+    suite = unittest.defaultTestLoader.loadTestsFromTestCase(TestTagweed)
+    unittest.TextTestRunner().run(suite)
