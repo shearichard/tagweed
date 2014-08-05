@@ -1,6 +1,8 @@
 readme-driven-development.md
 *.py[cod]
 
+# Temporary Confir Reference File ======================
+CONFIG_INFO_DONT_COMMIT.txt
 # Database   ===========================================
 ./db  
 db/  

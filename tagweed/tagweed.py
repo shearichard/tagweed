@@ -8,7 +8,7 @@ import requests
 import pprint
 
 #from tagweed import configuration
-import configuration
+#import configuration
 import collections
 import difflib
 
@@ -122,6 +122,7 @@ def innermain(args):
 def main():
     '''Main entry point for the tagweed CLI.'''
     args = configuration.parse_args_and_cfg()
+
     print(args)
     tagsdict = innermain(args)
     print(tagsdict)
