@@ -7,7 +7,8 @@ from requests.auth import HTTPBasicAuth
 import requests
 import pprint
 
-from tagweed import configuration
+#from tagweed import configuration
+import configuration
 import collections
 import difflib
 
