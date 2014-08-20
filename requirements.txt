@@ -18,4 +18,3 @@ requests==2.2.1
 tox==1.7.1
 virtualenv==1.11.6
 wmctrl==0.1
-wsgiref==0.1.2
