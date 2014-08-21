@@ -4,6 +4,10 @@
 from __future__ import unicode_literals, print_function
 import os
 import sys
+import pprint
+import collections
+import difflib
+
 try:
     from ConfigParser import SafeConfigParser
 except ImportError:
@@ -11,6 +15,9 @@ except ImportError:
 import argparse
 
 from future.utils import viewkeys
+from requests.auth import HTTPBasicAuth
+import requests
+
 
 def parse_args_and_cfg():
     '''
@@ -88,17 +95,7 @@ def parse_command_line_args():
             sys.exit("For source : %s the password must be supplied" % args['source'])
 
     return args
-#from __future__ import unicode_literals, print_function
 
-from requests.auth import HTTPBasicAuth
-import requests
-import pprint
-from future.utils import viewkeys
-
-#import configuration
-#from . import configuration
-import collections
-import difflib
 
 def gettagsexternal(args):
     '''
