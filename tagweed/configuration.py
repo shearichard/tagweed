@@ -4,8 +4,13 @@
 from __future__ import unicode_literals, print_function
 import os
 import sys
-from ConfigParser import SafeConfigParser
+try:
+    from ConfigParser import SafeConfigParser
+except ImportError:
+    from configparser import SafeConfigParser
 import argparse
+
+from future.utils import viewkeys
 
 def parse_args_and_cfg():
     '''
@@ -15,7 +20,7 @@ def parse_args_and_cfg():
     args = parse_command_line_args()
     cfgs = process_config_file(args['config'], args['source'])
 
-    for k in cfgs.iterkeys():
+    for k in viewkeys(cfgs):
         if k in args:
             sys.exit("The config key : %s also appears as a \
                     command line argument keyword. Fatal error" % k)

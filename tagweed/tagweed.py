@@ -6,6 +6,7 @@ from __future__ import unicode_literals, print_function
 from requests.auth import HTTPBasicAuth
 import requests
 import pprint
+from future.utils import viewkeys
 
 import configuration
 import collections
@@ -78,7 +79,8 @@ def find_plural_tags(dtags):
     '''
     dplurals = {}
     dsingular = []
-    for k in dtags.iterkeys():
+    #for k in dtags.iterkeys():
+    for k in viewkeys(dtags):
         if k not in dsingular:
             dsingular.append(k)
             plural_type_a = "%ss" % (k)
