@@ -7,6 +7,7 @@ db/
 data
 # Virtual env===========================================
 venv
+venv3
 # autoenv (https://github.com/kennethreitz/autoenv) ====
 .env
 
