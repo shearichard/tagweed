@@ -164,7 +164,6 @@ def find_plural_tags(dtags):
     '''
     dplurals = {}
     dsingular = []
-    #for k in dtags.iterkeys():
     for k in viewkeys(dtags):
         if k not in dsingular:
             dsingular.append(k)
@@ -207,7 +206,6 @@ def innermain(args):
 
 def main():
     '''Main entry point for the tagweed CLI.'''
-    #args = configuration.parse_args_and_cfg()
     args = parse_args_and_cfg()
     print(args)
     tagsdict = innermain(args)

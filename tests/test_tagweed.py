@@ -8,7 +8,7 @@ test_tagweed
 Tests for `tagweed` module.
 """
 from __future__ import unicode_literals
-from __future__ import absolute_import 
+from __future__ import absolute_import
 
 import unittest
 from requests.exceptions import HTTPError
@@ -81,7 +81,7 @@ class TestTagweed(unittest.TestCase):
         '''
         Test how the code deals with improper authorisation
         '''
-        with self.assertRaises(HTTPError) as cm:
+        with self.assertRaises(HTTPError) as cm:   # noqa
             tagweed.innermain({'taggeturl': 'https://api.pinboard.in/v1/tags/get?format=json',
                                'source': 'PINBOARD',
                                'userid': '',
@@ -91,7 +91,8 @@ class TestTagweed(unittest.TestCase):
         '''
         Test how the code deals with an attempt to use local
         '''
-        with self.assertRaises(NotImplementedError) as cm:
+        with self.assertRaises(NotImplementedError) as cm:   # noqa
+
             tagweed.innermain({'taggeturl': 'https://api.pinboard.in/v1/tags/get?format=json',
                                'source': 'LOCAL',
                                'userid': '',
