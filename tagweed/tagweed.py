@@ -8,7 +8,8 @@ import requests
 import pprint
 from future.utils import viewkeys
 
-import configuration
+#import configuration
+from . import configuration
 import collections
 import difflib
 
