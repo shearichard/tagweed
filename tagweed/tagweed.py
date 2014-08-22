@@ -210,6 +210,7 @@ def main():
     print(args)
     tagsdict = innermain(args)
     print(tagsdict)
+    print("Will this trigger a travis run ?")
 
 
 if __name__ == '__main__':
